@@ -1,4 +1,4 @@
-package com.vjam.demo.ui;
+package com.vjam.demo.ui.whatshot;
 
 import android.content.Context;
 import android.support.v7.widget.PopupMenu;
@@ -18,7 +18,7 @@ import com.vjam.demo.model.ItemModel;
 
 import java.util.List;
 
-public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> {
+public class WhatsHotAdapter extends RecyclerView.Adapter<WhatsHotAdapter.MyViewHolder> {
 
     private Context mContext;
     private List<ItemModel> albumList;
@@ -37,7 +37,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
     }
 
 
-    public ItemAdapter(Context mContext, List<ItemModel> albumList) {
+    public WhatsHotAdapter(Context mContext, List<ItemModel> albumList) {
         this.mContext = mContext;
         this.albumList = albumList;
     }

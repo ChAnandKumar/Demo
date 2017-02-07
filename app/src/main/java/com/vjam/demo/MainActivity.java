@@ -10,7 +10,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import com.vjam.demo.ui.HomeFragment;
+import com.vjam.demo.ui.home.HomeFragment;
+import com.vjam.demo.ui.whatshot.WhatsHotFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,6 +54,11 @@ public class MainActivity extends AppCompatActivity {
                                 new ColorDrawable(getResources().getColor(R.color.colorAccent)));
                         break;
                     case R.id.action_schedules:
+
+
+                        WhatsHotFragment fragment = new WhatsHotFragment();
+                        openFragment(fragment);
+
                         navigation.setItemBackgroundResource(R.color.yellow);
                         getSupportActionBar().setBackgroundDrawable(
                                 new ColorDrawable(getResources().getColor(R.color.yellow)));

@@ -1,4 +1,4 @@
-package com.vjam.demo.ui;
+package com.vjam.demo.ui.whatshot;
 
 
 import android.content.res.Resources;
@@ -6,7 +6,7 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -23,14 +23,13 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment {
-
+public class WhatsHotFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private ArrayList<ItemModel> albumList;
-    private ItemAdapter adapter;
+    private WhatsHotAdapter adapter;
 
-    public HomeFragment() {
+    public WhatsHotFragment() {
         // Required empty public constructor
     }
 
@@ -39,16 +38,16 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_whats_hot, container, false);
 
         recyclerView = (RecyclerView)view. findViewById(R.id.recycler_view);
 
         albumList = new ArrayList<>();
-        adapter = new ItemAdapter(getActivity(), albumList);
+        adapter = new WhatsHotAdapter(getActivity(), albumList);
 
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
+        //recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
@@ -59,7 +58,7 @@ public class HomeFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return view;
+        return  view;
     }
 
     /**

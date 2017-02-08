@@ -24,7 +24,13 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".ui.item_details.ShowDetailsActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.item_details.DetailsScrollingActivity"
+            android:label="@string/title_activity_details_scrolling"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

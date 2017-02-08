@@ -1,6 +1,7 @@
 package com.vjam.demo.ui.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.vjam.demo.R;
 import com.vjam.demo.model.ItemModel;
+import com.vjam.demo.ui.item_details.ShowDetailsActivity;
 
 import java.util.List;
 
@@ -51,7 +53,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         ItemModel album = albumList.get(position);
         holder.title.setText(album.getName());
         holder.count.setText("Rs " + album.getCost() );
@@ -63,6 +65,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
             @Override
             public void onClick(View view) {
                 showPopupMenu(holder.overflow);
+            }
+        });
+
+        holder.thumbnail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, ShowDetailsActivity.class);
+                intent.putExtra("pos",position);
+                mContext.startActivity(intent);
             }
         });
     }

@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                                 new ColorDrawable(getResources().getColor(R.color.black)));
                         break;
                     case R.id.action_favorites:
-                        navigation.setItemBackgroundResource(R.drawable.ripple_color);
+                        navigation.setItemBackgroundResource(R.color.colorAccent);
                         getSupportActionBar().setBackgroundDrawable(
                                 new ColorDrawable(getResources().getColor(R.color.colorAccent)));
                         break;

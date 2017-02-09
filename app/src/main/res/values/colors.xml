@@ -10,5 +10,6 @@
     <color name="yellow">#ff5900</color>
     <color name="album_title">#4c4c4c</color>
     <color name="viewBg">#f1f5f8</color>
+    <color name="ash">#c0c0c0</color>
 
 </resources>

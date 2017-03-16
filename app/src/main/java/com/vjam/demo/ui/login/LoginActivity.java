@@ -1,4 +1,4 @@
-package com.vjam.demo;
+package com.vjam.demo.ui.login;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -29,6 +29,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.vjam.demo.R;
+import com.vjam.demo.ui.main.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;

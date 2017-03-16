@@ -1,4 +1,4 @@
-package com.vjam.demo;
+package com.vjam.demo.ui.main;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import com.vjam.demo.R;
 import com.vjam.demo.ui.home.HomeFragment;
 import com.vjam.demo.ui.whatshot.WhatsHotFragment;
 
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         //BottomNavigationViewHelper.disableShiftMode(navigation);
+        HomeFragment homeFragment = new HomeFragment();
+        openFragment(homeFragment);
 
 
 

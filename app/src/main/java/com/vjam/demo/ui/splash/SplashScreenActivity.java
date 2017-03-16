@@ -1,8 +1,11 @@
-package com.vjam.demo;
+package com.vjam.demo.ui.splash;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import com.vjam.demo.R;
+import com.vjam.demo.ui.login.LoginActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
 

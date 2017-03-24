@@ -7,8 +7,11 @@ import com.vjam.demo.data.AppDataManager;
 import com.vjam.demo.data.DataManager;
 import com.vjam.demo.data.db.AppDbHelper;
 import com.vjam.demo.data.db.DbHelper;
+import com.vjam.demo.data.prefs.AppPreferencesHelper;
+import com.vjam.demo.data.prefs.PreferencesHelper;
 import com.vjam.demo.di.ApplicationContext;
 import com.vjam.demo.di.DatabaseInfo;
+import com.vjam.demo.di.PreferenceInfo;
 import com.vjam.demo.util.AppConstants;
 
 import javax.inject.Singleton;
@@ -56,5 +59,18 @@ public class ApplicationModule {
     @Singleton
     DbHelper provideDbHelper(AppDbHelper appDbHelper) {
         return appDbHelper;
+    }
+
+
+    @Provides
+    @PreferenceInfo
+    String providePreferenceName() {
+        return AppConstants.PREF_NAME;
+    }
+
+    @Provides
+    @Singleton
+    PreferencesHelper providePreferencesHelper(AppPreferencesHelper appPreferencesHelper) {
+        return appPreferencesHelper;
     }
 }

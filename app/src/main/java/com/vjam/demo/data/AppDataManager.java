@@ -8,6 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import com.vjam.demo.data.db.DbHelper;
 import com.vjam.demo.data.db.model.PModel;
 import com.vjam.demo.data.db.model.RModel;
+import com.vjam.demo.data.prefs.PreferencesHelper;
 import com.vjam.demo.di.ApplicationContext;
 import com.vjam.demo.util.AppConstants;
 import com.vjam.demo.util.CommonUtils;
@@ -31,12 +32,14 @@ public class AppDataManager implements DataManager {
 
     private Context context;
     private DbHelper dbHelper;
+    private PreferencesHelper preferencesHelper;
     private DataManager dataManager;
 
     @Inject
-    public AppDataManager(@ApplicationContext Context context, DbHelper dbHelper) {
+    public AppDataManager(@ApplicationContext Context context, DbHelper dbHelper, PreferencesHelper preferencesHelper) {
         this.context = context;
         this.dbHelper = dbHelper;
+        this.preferencesHelper = preferencesHelper;
     }
 
 
@@ -93,6 +96,25 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void setUserAsLoggedOut() {
+
+    }
+
+    @Override
+    public void updateUserInfo(String accessToken, Long userId, LoggedInMode loggedInMode, String userName, String email, String profilePicPath) {
+
+
+            setAccessToken(accessToken);
+            setCurrentUserId(userId);
+            setCurrentUserLoggedInMode(loggedInMode);
+            setCurrentUserName(userName);
+            setCurrentUserEmail(email);
+            setCurrentUserProfilePicUrl(profilePicPath);
+
+            //updateApiHeader(userId, accessToken);
+    }
+
+    @Override
     public Observable<List<RModel>> getAllReportData() {
         return null;
     }
@@ -140,6 +162,71 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<Boolean> saveReportList(List<RModel> reportList) {
         return null;
+    }
+
+
+    /**
+     * PrefHelper Interface Methods
+     * @return
+     */
+    @Override
+    public int getCurrentUserLoggedInMode() {
+        return preferencesHelper.getCurrentUserLoggedInMode();
+    }
+
+    @Override
+    public void setCurrentUserLoggedInMode(LoggedInMode mode) {
+        preferencesHelper.setCurrentUserLoggedInMode(mode);
+    }
+
+    @Override
+    public Long getCurrentUserId() {
+        return preferencesHelper.getCurrentUserId();
+    }
+
+    @Override
+    public void setCurrentUserId(Long userId) {
+        preferencesHelper.setCurrentUserId(userId);
+    }
+
+    @Override
+    public String getCurrentUserName() {
+        return preferencesHelper.getCurrentUserName();
+    }
+
+    @Override
+    public void setCurrentUserName(String userName) {
+        preferencesHelper.setCurrentUserName(userName);
+    }
+
+    @Override
+    public String getCurrentUserEmail() {
+        return preferencesHelper.getCurrentUserEmail();
+    }
+
+    @Override
+    public void setCurrentUserEmail(String email) {
+        preferencesHelper.setCurrentUserEmail(email);
+    }
+
+    @Override
+    public String getCurrentUserProfilePicUrl() {
+        return preferencesHelper.getCurrentUserProfilePicUrl();
+    }
+
+    @Override
+    public void setCurrentUserProfilePicUrl(String profilePicUrl) {
+        preferencesHelper.setCurrentUserProfilePicUrl(profilePicUrl);
+    }
+
+    @Override
+    public String getAccessToken() {
+        return preferencesHelper.getAccessToken();
+    }
+
+    @Override
+    public void setAccessToken(String accessToken) {
+        preferencesHelper.setAccessToken(accessToken);
     }
 
    /* @Override

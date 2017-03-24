@@ -1,7 +1,6 @@
 package com.vjam.demo.ui.home;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,7 +15,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.vjam.demo.R;
 import com.vjam.demo.model.ItemModel;
-import com.vjam.demo.ui.item_details.ShowDetailsActivity;
 
 import java.util.List;
 
@@ -24,6 +22,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
 
     private Context mContext;
     private List<ItemModel> albumList;
+
+    private HomeAdapterCallback adapterCallback;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, count;
@@ -39,9 +39,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
     }
 
 
-    public ItemAdapter(Context mContext, List<ItemModel> albumList) {
+    public ItemAdapter(Context mContext, List<ItemModel> albumList,HomeAdapterCallback adapterCallback) {
         this.mContext = mContext;
         this.albumList = albumList;
+        this.adapterCallback = adapterCallback;
     }
 
     @Override
@@ -64,16 +65,17 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPopupMenu(holder.overflow);
+                showPopupMenu(holder.overflow,position);
             }
         });
 
         holder.thumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, ShowDetailsActivity.class);
+               /* Intent intent = new Intent(mContext, ShowDetailsActivity.class);
                 intent.putExtra("pos",position);
-                mContext.startActivity(intent);
+                mContext.startActivity(intent);*/
+               adapterCallback.onItemClicked(position);
             }
         });
     }
@@ -81,13 +83,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
     /**
      * Showing popup menu when tapping on 3 dots
      */
-    private void showPopupMenu(View view) {
+    private void showPopupMenu(View view, int position) {
         // inflate menu
         PopupMenu popup = new PopupMenu(mContext, view);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.item_menu, popup.getMenu());
-        popup.setOnMenuItemClickListener(new MyMenuItemClickListener());
+        popup.setOnMenuItemClickListener(new MyMenuItemClickListener(position));
         popup.show();
+
+
     }
 
     /**
@@ -95,18 +99,26 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
      */
     class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
 
-        public MyMenuItemClickListener() {
+        private int postion;
 
-            String a;
+        public MyMenuItemClickListener(int postion) {
+            this.postion = postion;
+
         }
+
+
 
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
+
                 case R.id.action_add_favourite:
+                    adapterCallback.onFavClicked(postion);
+                    //menuItem.getOrder();
                     Toast.makeText(mContext, "Add to favourite", Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.action_add_to_cart:
+                    adapterCallback.onAddToCartClicked(postion);
                     Toast.makeText(mContext, "Added to cart", Toast.LENGTH_SHORT).show();
                     return true;
                 default:

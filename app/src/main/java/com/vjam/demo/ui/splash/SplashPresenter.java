@@ -1,0 +1,71 @@
+package com.vjam.demo.ui.splash;
+
+import com.vjam.demo.data.DataManager;
+import com.vjam.demo.ui.base.BasePresenter;
+
+import javax.inject.Inject;
+
+import io.reactivex.ObservableSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
+
+/**
+ * Created by anand.chandaliya on 22-03-2017.
+ */
+
+public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V> implements SplashMvpPresenter<V>{
+
+
+    @Inject
+    public SplashPresenter(DataManager dataManager, CompositeDisposable compositeDisposable) {
+        super(dataManager, compositeDisposable);
+    }
+
+    @Override
+    public void onAttach(V mvpView) {
+        super.onAttach(mvpView);
+        Timber.d("onAttach is called.");
+        //getMvpView().openHomeScreen();
+        getCompositeDisposable().add(getDataManager()
+                .loadProfileData()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .concatMap(new Function<Boolean, ObservableSource<Boolean>>() {
+                    @Override
+                    public ObservableSource<Boolean> apply(Boolean aBoolean) throws Exception {
+                        return getDataManager().loadProfileData();
+                    }
+                })
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean) throws Exception {
+                        if (!isViewAttached()) {
+                            return;
+                        }
+                        decideNextActivity();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        if(!isViewAttached()) {
+                            return;
+                        }
+                        getMvpView().onError("Some Error");
+                        decideNextActivity();
+                    }
+                }));
+    }
+
+    private void decideNextActivity() {
+        if (getDataManager().getCurrentUserLoggedInMode()
+                == DataManager.LoggedInMode.LOGGED_IN_MODE_LOGGED_OUT.getType()) {
+            getMvpView().openSingInScreen();
+        } else {
+            getMvpView().openHomeScreen();
+        }
+    }
+}

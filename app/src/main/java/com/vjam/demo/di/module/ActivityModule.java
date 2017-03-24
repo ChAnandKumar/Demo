@@ -4,6 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.vjam.demo.di.ActivityContext;
+import com.vjam.demo.di.PerActivity;
+import com.vjam.demo.ui.home.HomeMvpPresenter;
+import com.vjam.demo.ui.home.HomeMvpView;
+import com.vjam.demo.ui.home.HomePresenter;
+import com.vjam.demo.ui.splash.SplashMvpPresenter;
+import com.vjam.demo.ui.splash.SplashMvpView;
+import com.vjam.demo.ui.splash.SplashPresenter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -39,10 +46,17 @@ public class ActivityModule {
         return new CompositeDisposable();
     }
 
-    /*@Provides
+    @Provides
     @PerActivity
     SplashMvpPresenter<SplashMvpView> provideSplashPresenter(SplashPresenter<SplashMvpView>
                                                                      presenter) {
         return presenter;
-    }*/
+    }
+
+    @Provides
+    @PerActivity
+    HomeMvpPresenter<HomeMvpView> provideHomePresenter(HomePresenter<HomeMvpView>
+                                                                     presenter) {
+        return presenter;
+    }
 }

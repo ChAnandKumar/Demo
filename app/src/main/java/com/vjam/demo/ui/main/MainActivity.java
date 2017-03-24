@@ -7,14 +7,14 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.vjam.demo.R;
+import com.vjam.demo.ui.base.BaseActivity;
 import com.vjam.demo.ui.home.HomeFragment;
 import com.vjam.demo.ui.whatshot.WhatsHotFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private BottomNavigationView navigation;
     private FragmentTransaction fragmentTransaction;
@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getActivityComponent().inject(this);
+
         navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         //BottomNavigationViewHelper.disableShiftMode(navigation);
         HomeFragment homeFragment = new HomeFragment();
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                         getSupportActionBar().setBackgroundDrawable(
                                 new ColorDrawable(getResources().getColor(R.color.black)));
                         break;
+
                     case R.id.action_favorites:
                         navigation.setItemBackgroundResource(R.color.colorAccent);
                         getSupportActionBar().setBackgroundDrawable(
@@ -84,6 +87,11 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    @Override
+    protected void setUp() {
 
     }
 

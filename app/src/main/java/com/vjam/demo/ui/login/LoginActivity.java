@@ -3,22 +3,20 @@ package com.vjam.demo.ui.login;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
-
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -31,10 +29,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.vjam.demo.R;
+import com.vjam.demo.data.DataManager;
 import com.vjam.demo.ui.main.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -60,6 +61,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     private UserLoginTask mAuthTask = null;
 
+    @Inject DataManager dataManager;
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
@@ -331,12 +333,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             return true;
         }
 
+
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
 
             if (success) {
+
+                /*DataManager.LoggedInMode loggedInModeServer = DataManager.LoggedInMode.LOGGED_IN_MODE_SERVER;
+                Timber.e("inside success");
+
+                Toast.makeText(LoginActivity.this,"Login Activity",1000).show();
+                dataManager.updateUserInfo("123",234l,
+                        DataManager.LoggedInMode.LOGGED_IN_MODE_SERVER,
+                        "Anand",mEmail,"");*/
                 startActivity(new Intent(LoginActivity.this,MainActivity.class));
                 finish();
             } else {

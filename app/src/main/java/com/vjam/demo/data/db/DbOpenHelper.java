@@ -3,7 +3,7 @@ package com.vjam.demo.data.db;
 import android.content.Context;
 import android.util.Log;
 
-import com.vjam.demo.data.db.model.DaoMaster;
+import com.vjam.demo.data.db.item_model.DaoMaster;
 import com.vjam.demo.di.ApplicationContext;
 import com.vjam.demo.di.DatabaseInfo;
 

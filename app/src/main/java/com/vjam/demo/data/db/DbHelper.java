@@ -1,8 +1,8 @@
 package com.vjam.demo.data.db;
 
 
-import com.vjam.demo.data.db.model.PModel;
-import com.vjam.demo.data.db.model.RModel;
+import com.vjam.demo.data.db.item_model.Item;
+import com.vjam.demo.data.db.item_model.User;
 
 import java.util.List;
 
@@ -14,7 +14,32 @@ import io.reactivex.Observable;
 
 public interface DbHelper {
 
-    Observable<List<RModel>> getAllReportData();
+    /** User */
+    Observable<Boolean> insertUser(User user);
+
+    Observable<Boolean> isUserEmpty();
+
+    Observable<User> getUserData();
+
+
+
+    /** Item */
+    Observable<List<Item>> getAllItems();
+
+    Observable<Boolean> insertItem(Item item);
+
+    Observable<Boolean> isItemEmpty();
+
+    Observable<Item> getItemData();
+
+    Observable<Boolean> saveItemList(List<Item> items);
+
+
+
+
+
+
+    /*Observable<List<RModel>> getAllReportData();
 
     Observable<Long> insertReport(RModel report);
 
@@ -22,16 +47,16 @@ public interface DbHelper {
 
     Observable<List<PModel>> getProfileData();
 
-    Observable<Boolean> isProfileEmpty();
+    Observable<Boolean> isProfileEmpty();*/
 
-    Observable<Boolean> isReportEmpty();
+    //Observable<Boolean> isReportEmpty();
 
-    Observable<Boolean> saveProfile(PModel profile);
+    //Observable<Boolean> saveProfile(PModel profile);
 
-    Observable<Boolean> saveReport(RModel report);
+    //Observable<Boolean> saveReport(RModel report);
 
-    Observable<Boolean> saveProfileList(List<PModel> profileList);
+    //Observable<Boolean> saveProfileList(List<PModel> profileList);
 
-    Observable<Boolean> saveReportList(List<RModel> reportList);
+    //Observable<Boolean> saveReportList(List<RModel> reportList);
 
 }

@@ -12,8 +12,8 @@ import io.reactivex.Observable;
 
 public interface DataManager extends DbHelper,PreferencesHelper {
 
-    Observable<Boolean> loadProfileData();
-    Observable<Boolean> loadReport();
+    Observable<Boolean> loadUserData();
+    Observable<Boolean> loadItems();
 
     void setUserAsLoggedOut();
 

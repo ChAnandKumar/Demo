@@ -31,13 +31,13 @@ public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V> i
         Timber.d("onAttach is called.");
         //getMvpView().openHomeScreen();
         getCompositeDisposable().add(getDataManager()
-                .loadProfileData()
+                .loadItems()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .concatMap(new Function<Boolean, ObservableSource<Boolean>>() {
                     @Override
                     public ObservableSource<Boolean> apply(Boolean aBoolean) throws Exception {
-                        return getDataManager().loadProfileData();
+                        return getDataManager().loadItems();
                     }
                 })
                 .subscribe(new Consumer<Boolean>() {

@@ -5,6 +5,7 @@ package com.vjam.demo.model;
  */
 
 public class ItemModel {
+
     String name;
     String price;
     String details;

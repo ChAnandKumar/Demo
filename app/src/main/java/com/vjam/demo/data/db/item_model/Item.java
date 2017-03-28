@@ -24,6 +24,24 @@ public class Item {
     8.Item Id
     9.Trending*/
 
+    /**
+     * id
+     * item_name
+     * item_id
+     * item_details
+     * item_category
+     * item_price
+     * item_color
+     * is_item_fav
+     * is_item_in_stock
+     * is_item_trending
+     * item_image
+     * item_delivery_charges
+     * item_avg_rating
+     * item_no_of_reviews
+     * item_no_of_ratings
+     */
+
     @Expose
     @SerializedName("id")
     @Id(autoincrement = true)
@@ -120,6 +138,9 @@ public class Item {
         this.itemNoOfReviews = itemNoOfReviews;
         this.itemNoOfRatings = itemNoOfRatings;
     }
+
+    /*http://beta.json-generator.com/4knv5Xmnz
+       http://www.mocky.io/v2/58da40e30f0000b700d66adc*/
 
     public Item() {
     }

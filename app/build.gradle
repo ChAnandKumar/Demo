@@ -43,10 +43,13 @@ dependencies {
     //compile "com.amitshekhar.android:rx2-android-networking:$rootProject.rx2AndroidNetworking"
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
     compile "com.google.code.gson:gson:$rootProject.gsonVersion"
+    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+    //compile 'com.squareup.retrofit2:adapter-rxjava:2.2.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
 
     // database
     compile "org.greenrobot:greendao:$rootProject.greenDaoVersion"
-    debugCompile "com.amitshekhar.android:debug-db:$rootProject.debugDBVersion"
+    debugCompile "com.amitshekhar.android:debug-db:$rootProject.debugDBVersion";
 
     // dependency injection
     compile "com.google.dagger:dagger:$rootProject.dagger2Version"

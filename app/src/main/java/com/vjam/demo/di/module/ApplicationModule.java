@@ -7,6 +7,7 @@ import com.vjam.demo.data.AppDataManager;
 import com.vjam.demo.data.DataManager;
 import com.vjam.demo.data.db.AppDbHelper;
 import com.vjam.demo.data.db.DbHelper;
+import com.vjam.demo.data.network.ItemServices;
 import com.vjam.demo.data.prefs.AppPreferencesHelper;
 import com.vjam.demo.data.prefs.PreferencesHelper;
 import com.vjam.demo.di.ApplicationContext;
@@ -61,6 +62,12 @@ public class ApplicationModule {
         return appDbHelper;
     }
 
+
+    @Provides
+    @Singleton
+    ItemServices provideRibotsService() {
+        return ItemServices.Creator.newRibotsService();
+    }
 
     @Provides
     @PreferenceInfo

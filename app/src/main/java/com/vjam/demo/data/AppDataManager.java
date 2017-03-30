@@ -8,6 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import com.vjam.demo.data.db.DbHelper;
 import com.vjam.demo.data.db.item_model.Item;
 import com.vjam.demo.data.db.item_model.User;
+import com.vjam.demo.data.network.ItemServices;
 import com.vjam.demo.data.prefs.PreferencesHelper;
 import com.vjam.demo.di.ApplicationContext;
 import com.vjam.demo.util.AppConstants;
@@ -33,16 +34,41 @@ public class AppDataManager implements DataManager {
     private Context context;
     private DbHelper dbHelper;
     private PreferencesHelper preferencesHelper;
+    private ItemServices mItemServices;
     private DataManager dataManager;
 
     @Inject
-    public AppDataManager(@ApplicationContext Context context, DbHelper dbHelper, PreferencesHelper preferencesHelper) {
+    public AppDataManager(@ApplicationContext Context context, DbHelper dbHelper,
+                          PreferencesHelper preferencesHelper, ItemServices mItemServices) {
         this.context = context;
         this.dbHelper = dbHelper;
         this.preferencesHelper = preferencesHelper;
+        this.mItemServices = mItemServices;
     }
 
-   @Override
+   /* @Override
+    public Observable<Item> syncItemData() {
+        return mItemServices.getItems()
+                .concatMap(new Function<List<Item>, ObservableSource<? extends Item>>() {
+                    @Override
+                    public ObservableSource<? extends Item> apply(List<Item> items) throws Exception {
+                        return dbHelper.saveItemList(items);
+                    }
+                });
+    }*/
+
+    @Override
+    public Observable<Boolean> syncItemData() {
+        return mItemServices.getItems()
+                .concatMap(new Function<List<Item>, ObservableSource<? extends Boolean>>() {
+                    @Override
+                    public ObservableSource<? extends Boolean> apply(List<Item> items) throws Exception {
+                        return dbHelper.saveItemList(items);
+                    }
+                });
+    }
+
+    @Override
     public Observable<Boolean> loadUserData() {
         GsonBuilder builder = new GsonBuilder().excludeFieldsWithoutExposeAnnotation();
         final Gson gson = builder.create();
@@ -56,9 +82,11 @@ public class AppDataManager implements DataManager {
                                        }
                                                .getType();
                                        User optionList = gson.fromJson(
-                                               CommonUtils.loadJSONFromAsset(context,
+                                                       CommonUtils.loadJSONFromAsset(context,
                                                        AppConstants.SEED_DATABASE_REPORT),
                                                type);
+
+                                      /*User optionList = mItemServices.getItems();*/
 
                                        return insertUser(optionList);
                                    }
@@ -87,7 +115,10 @@ public class AppDataManager implements DataManager {
                                             AppConstants.SEED_DATABASE_REPORT),
                                     type);
 
-                            return saveItemList(optionList);
+                            //List<Item> optionList = mItemServices.getItems();
+
+                            //return saveItemList(optionList);
+                            return  null;//temp
                         }
                         return Observable.just(false);
                     }
@@ -180,43 +211,53 @@ public class AppDataManager implements DataManager {
 
     @Override
     public Observable<Boolean> insertUser(User user) {
-        return dataManager.insertUser(user);
+        return dbHelper.insertUser(user);
     }
 
     @Override
     public Observable<Boolean> isUserEmpty() {
-        return dataManager.isUserEmpty();
+        return dbHelper.isUserEmpty();
     }
 
     @Override
     public Observable<User> getUserData() {
-        return dataManager.getUserData();
+        return dbHelper.getUserData();
     }
 
     @Override
     public Observable<List<Item>> getAllItems() {
-        return dataManager.getAllItems();
+        return dbHelper.getAllItems();
     }
 
     @Override
     public Observable<Boolean> insertItem(Item item) {
-        return dataManager.insertItem(item);
+        return dbHelper.insertItem(item);
     }
 
     @Override
     public Observable<Boolean> isItemEmpty() {
-        return dataManager.isItemEmpty();
+        return dbHelper.isItemEmpty();
     }
 
     @Override
     public Observable<Item> getItemData() {
-        return dataManager.getItemData();
+        return dbHelper.getItemData();
     }
 
     @Override
     public Observable<Boolean> saveItemList(List<Item> items) {
-        return dataManager.saveItemList(items);
+        return dbHelper.saveItemList(items);
     }
+
+    /*@Override
+    public Observable<Boolean> saveItemListItem(List<Item> items) {
+        return dataManager.saveItemList(items);
+    }*/
+
+    /*@Override
+    public Observable<Item> saveItemList(List<Item> items) {
+        return dataManager.saveItemList(items);
+    }*/
 
 
 }

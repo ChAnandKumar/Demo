@@ -15,18 +15,20 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.vjam.demo.R;
-import com.vjam.demo.model.ItemModel;
+import com.vjam.demo.data.db.item_model.Item;
 import com.vjam.demo.ui.base.BaseFragment;
 import com.vjam.demo.ui.item_details.ShowDetailsActivity;
 import com.vjam.demo.util.GridSpacingItemDecoration;
 import com.vjam.demo.util.ViewUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,7 +43,7 @@ public class HomeFragment extends BaseFragment implements HomeMvpView,HomeAdapte
     @BindView(R.id.love_music)
     TextView loveMusic;
 
-    private ArrayList<ItemModel> albumList;
+    private ArrayList<Item> albumList;
     private ItemAdapter adapter;
 
 
@@ -73,14 +75,11 @@ public class HomeFragment extends BaseFragment implements HomeMvpView,HomeAdapte
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
-        prepareAlbums();
-
         try {
             Glide.with(this).load(R.drawable.cover).into((ImageView) view.findViewById(R.id.backdrop));
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
 
 
@@ -104,7 +103,7 @@ public class HomeFragment extends BaseFragment implements HomeMvpView,HomeAdapte
                 R.drawable.album10,
                 R.drawable.album11};
 
-        ItemModel a = new ItemModel("True Romance", 13, covers[0]);
+        /*ItemModel a = new ItemModel("True Romance", 13, covers[0]);
         albumList.add(a);
 
         a = new ItemModel("Xscpae", 8, covers[1]);
@@ -132,9 +131,9 @@ public class HomeFragment extends BaseFragment implements HomeMvpView,HomeAdapte
         albumList.add(a);
 
         a = new ItemModel("Greatest Hits", 17, covers[9]);
-        albumList.add(a);
+        albumList.add(a);*/
 
-        adapter.notifyDataSetChanged();
+
     }
 
     @Override
@@ -165,5 +164,12 @@ public class HomeFragment extends BaseFragment implements HomeMvpView,HomeAdapte
         Intent intent = new Intent(getActivity(), ShowDetailsActivity.class);
         intent.putExtra("pos",position);
         getActivity().startActivity(intent);
+    }
+
+    @Override
+    public void loadItemsInViewF(List<Item> items) {
+        Timber.i("loadItemsInViewF in Home Fragment: size : "+items.size());
+        albumList.addAll(items);
+        adapter.notifyDataSetChanged();
     }
 }

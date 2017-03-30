@@ -28,9 +28,44 @@ public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V> i
     @Override
     public void onAttach(V mvpView) {
         super.onAttach(mvpView);
-        Timber.d("onAttach is called.");
-        //getMvpView().openHomeScreen();
+        Timber.d("onAttach is called."  +getDataManager());
+
         getCompositeDisposable().add(getDataManager()
+                .syncItemData()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .concatMap(new Function<Boolean, ObservableSource<Boolean>>() {
+                    @Override
+                    public ObservableSource<Boolean> apply(Boolean aBoolean) throws Exception {
+                        Timber.d("concatMap is called in SplashPresenter.");
+                        return getDataManager().loadItems();
+                    }
+                })
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean) throws Exception {
+                        Timber.d("subscribe is called in SplashPresenter.");
+                        if (!isViewAttached()) {
+                            return;
+                        }
+                        decideNextActivity();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        throwable.printStackTrace();
+                        Timber.d("Throwable is called in SplashPresenter.");
+                        if(!isViewAttached()) {
+                            return;
+                        }
+                        //getMvpView().onError("Some Error");
+                        decideNextActivity();
+                    }
+                }));
+
+
+        //getMvpView().openHomeScreen();
+        /*getCompositeDisposable().add(getDataManager()
                 .loadItems()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -57,7 +92,7 @@ public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V> i
                         getMvpView().onError("Some Error");
                         decideNextActivity();
                     }
-                }));
+                }));*/
     }
 
     private void decideNextActivity() {

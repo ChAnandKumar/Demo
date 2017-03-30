@@ -15,6 +15,8 @@ public interface DataManager extends DbHelper,PreferencesHelper {
     Observable<Boolean> loadUserData();
     Observable<Boolean> loadItems();
 
+    Observable<Boolean> syncItemData();
+
     void setUserAsLoggedOut();
 
     void updateUserInfo(

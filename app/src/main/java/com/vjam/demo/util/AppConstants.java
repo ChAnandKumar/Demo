@@ -36,6 +36,8 @@ public final class AppConstants {
 
     public static final String TIMESTAMP_FORMAT = "yyyyMMdd_HHmmss";
 
+    public static final String ENDPOINT = "http://www.mocky.io/v2/";
+
     private AppConstants() {
         // This utility class is not publicly instantiable
     }

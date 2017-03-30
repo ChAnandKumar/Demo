@@ -98,7 +98,7 @@ public class MainActivity extends BaseActivity {
     private void openFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.container, fragment, "HOME");
+        fragmentTransaction.replace(R.id.container, fragment);
         fragmentTransaction.commit();
     }
 }

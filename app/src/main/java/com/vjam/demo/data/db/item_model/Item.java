@@ -6,7 +6,9 @@ import com.google.gson.annotations.SerializedName;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Property;
+import org.greenrobot.greendao.annotation.Unique;
 
 /**
  * Created by anand.chandaliya on 27-03-2017.
@@ -53,6 +55,8 @@ public class Item {
     private String itemName;
 
     @Expose
+    @Unique
+    @NotNull
     @SerializedName("item_id")
     @Property(nameInDb = "item_id")
     private String itemId;
@@ -117,8 +121,8 @@ public class Item {
     @Property(nameInDb = "item_no_of_ratings")
     private int itemNoOfRatings;
 
-    @Generated(hash = 434877129)
-    public Item(Long keyId, String itemName, String itemId, String itemDetails, String itemCategory,
+    @Generated(hash = 737645935)
+    public Item(Long keyId, String itemName, @NotNull String itemId, String itemDetails, String itemCategory,
             int itemPrice, String itemColor, Boolean isItemFav, Boolean isItemInStock, String isItemTrending,
             String itemImage, String itemDeliveryCharges, String itemAvgRating, int itemNoOfReviews,
             int itemNoOfRatings) {
@@ -138,6 +142,8 @@ public class Item {
         this.itemNoOfReviews = itemNoOfReviews;
         this.itemNoOfRatings = itemNoOfRatings;
     }
+
+    
 
     /*http://beta.json-generator.com/4knv5Xmnz
        http://www.mocky.io/v2/58da40e30f0000b700d66adc*/

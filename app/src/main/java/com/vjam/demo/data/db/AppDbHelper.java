@@ -124,17 +124,62 @@ public class AppDbHelper implements DbHelper {
 
      Donnot forget to refresh your entity: personDao.refresh(person10)*/
     @Override
-    public Observable<Boolean> updateItemData(final Item item,final int position) {
+    public Observable<Boolean> updateFav(final String itemId,final boolean isFav) {
         return Observable.fromCallable(new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
-                String updateQuery = "update "+ ItemDao.TABLENAME
+                //DaoSession daoSession = .getDaoMaster().newSession();
+                ItemDao usersDao = mDaoSession.getItemDao();
+                try{
+                    Item item1 = usersDao.queryBuilder()
+                            .where(ItemDao.Properties.ItemId.eq(itemId))
+                            .uniqueOrThrow();
+
+                    item1.setIsItemFav(isFav);
+                    //item1.setPhone(9000000001);
+                    usersDao.update(item1); // this line will update the data
+
+                } catch(Exception e) {
+                    //catch the exception, if there is no row available for the id.
+                    e.printStackTrace();
+                }
+
+                return true;
+               /* String updateQuery = "update "+ ItemDao.TABLENAME
                         + " set "+ItemDao.Properties.IsItemFav.columnName + "=?"
                         +" where " + ItemDao.Properties.ItemId.columnName + "=?";
                 mDaoSession.getDatabase().execSQL(updateQuery, new Object[] {true, "1001" });
+                mDaoSession.getItemDao().getKey(item.getItemId());
                 mDaoSession.refresh(item);
                 //mDaoSession.getItemDao().update(item);
+                return true;*/
+            }
+        });
+    }
+
+    @Override
+    public Observable<Boolean> updateCartItem(final String itemId,final boolean isInCart) {
+        return Observable.fromCallable(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                //DaoSession daoSession = .getDaoMaster().newSession();
+                ItemDao usersDao = mDaoSession.getItemDao();
+                try{
+                    Item item1 = usersDao.queryBuilder()
+                            .where(ItemDao.Properties.ItemId.eq(itemId))
+                            .uniqueOrThrow();
+
+                    item1.setIsItemAddedToCart(isInCart);
+                    //item1.setPhone(9000000001);
+                    usersDao.update(item1); // this line will update the data
+
+                } catch(Exception e) {
+                    //catch the exception, if there is no row available for the id.
+                    e.printStackTrace();
+                }
+
                 return true;
+
             }
         });
     }

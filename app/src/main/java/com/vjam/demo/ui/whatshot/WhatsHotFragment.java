@@ -16,17 +16,21 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.vjam.demo.R;
-import com.vjam.demo.model.ItemModel;
+import com.vjam.demo.data.db.item_model.Item;
+import com.vjam.demo.ui.base.BaseFragment;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WhatsHotFragment extends Fragment {
+public class WhatsHotFragment extends BaseFragment implements WhatsHotMvpView {
 
     private RecyclerView recyclerView;
-    private ArrayList<ItemModel> albumList;
+    private ArrayList<Item> albumList;
     private WhatsHotAdapter adapter;
 
     public WhatsHotFragment() {
@@ -34,11 +38,17 @@ public class WhatsHotFragment extends Fragment {
     }
 
 
+    @Inject
+    WhatsHotMvpPresenter<WhatsHotMvpView> mPresenter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_whats_hot, container, false);
+
+        getActivityComponent().inject(this);
+        mPresenter.onAttach(this);
 
         recyclerView = (RecyclerView)view. findViewById(R.id.recycler_view);
 
@@ -51,7 +61,7 @@ public class WhatsHotFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
-        prepareAlbums();
+        //prepareAlbums();
 
         try {
             Glide.with(this).load(R.drawable.cover).into((ImageView)view. findViewById(R.id.backdrop));
@@ -78,7 +88,7 @@ public class WhatsHotFragment extends Fragment {
                 R.drawable.album10,
                 R.drawable.album11};
 
-        ItemModel a = new ItemModel("True Romance", 13, covers[0]);
+       /* ItemModel a = new ItemModel("True Romance", 13, covers[0]);
         albumList.add(a);
 
         a = new ItemModel("Xscpae", 8, covers[1]);
@@ -106,9 +116,20 @@ public class WhatsHotFragment extends Fragment {
         albumList.add(a);
 
         a = new ItemModel("Greatest Hits", 17, covers[9]);
-        albumList.add(a);
+        albumList.add(a);*/
 
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void loadWhatsHotItems(List<Item> items) {
+        albumList.addAll(items);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void setUp(View view) {
+
     }
 
     /**

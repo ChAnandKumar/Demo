@@ -9,7 +9,7 @@ import com.vjam.demo.ui.base.MvpPresenter;
 
 @PerActivity
 public interface HomeMvpPresenter<V extends HomeMvpView> extends MvpPresenter<V> {
-    void addToFav(int postion);
+    void addToFav(String itemId, boolean isFav);
 
-    void addToCart(int postion);
+    void addToCart(String itemId, boolean isInCart);
 }

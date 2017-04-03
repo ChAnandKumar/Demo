@@ -249,6 +249,18 @@ public class AppDataManager implements DataManager {
         return dbHelper.saveItemList(items);
     }
 
+    @Override
+    public Observable<Boolean> updateFav(String itemId,boolean isFav) {
+        return dbHelper.updateFav(itemId,isFav);
+    }
+
+    @Override
+    public Observable<Boolean> updateCartItem(String itemId, boolean isInCart) {
+        return dbHelper.updateCartItem(itemId,isInCart);
+    }
+
+
+
     /*@Override
     public Observable<Boolean> saveItemListItem(List<Item> items) {
         return dataManager.saveItemList(items);

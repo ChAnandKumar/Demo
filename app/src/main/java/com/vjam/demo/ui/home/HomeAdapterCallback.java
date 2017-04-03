@@ -6,8 +6,8 @@ package com.vjam.demo.ui.home;
 
 public interface HomeAdapterCallback {
 
-    void onFavClicked(int postion);
-    void onAddToCartClicked(int postion);
+    void onFavClicked(String itemId, boolean isFavAdded);
+    void onAddToCartClicked(String itemId, boolean isCartAdded);
 
     void onItemClicked(int position);
 }

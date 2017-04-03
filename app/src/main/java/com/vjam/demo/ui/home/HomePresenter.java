@@ -33,14 +33,14 @@ public class HomePresenter<V extends HomeMvpView> extends BasePresenter<V> imple
         Timber.i("in HomePresenter onAttach");
 
         getCompositeDisposable().add(getDataManager().getAllItems()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<List<Item>>() {
-                @Override
-                public void accept(List<Item> items) throws Exception {
-                    getMvpView().loadItemsInViewF(items);
-                }
-            }));
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<Item>>() {
+                    @Override
+                    public void accept(List<Item> items) throws Exception {
+                        getMvpView().loadItemsInViewF(items);
+                    }
+                }));
 
     }
 
@@ -50,14 +50,32 @@ public class HomePresenter<V extends HomeMvpView> extends BasePresenter<V> imple
     }
 
     @Override
-    public void addToFav(int postion) {
-        Timber.i("in HomePresenter Fav"+postion);
-        getDataManager().updateItemData(null,1);
+    public void addToFav(String itemId, boolean isFav) {
+        Timber.i("in HomePresenter Fav"+itemId);
+        getCompositeDisposable().add(getDataManager().updateFav(itemId,isFav)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean) throws Exception {
+                        Timber.i("in HomePresenter addToFav "+aBoolean);
+                    }
+                }));
+        //getDataManager().updateItemData(null,1);
     }
 
     @Override
-    public void addToCart(int postion) {
-        Timber.i("in HomePresenter Cart"+postion);
+    public void addToCart(String itemId, boolean isFav) {
+        Timber.i("in HomePresenter Cart"+itemId);
+        getCompositeDisposable().add(getDataManager().updateCartItem(itemId,isFav)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean) throws Exception {
+                        Timber.i("in HomePresenter Cart "+aBoolean);
+                    }
+                }));
 
     }
 }

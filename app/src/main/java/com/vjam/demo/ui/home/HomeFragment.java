@@ -150,13 +150,13 @@ public class HomeFragment extends BaseFragment implements HomeMvpView,HomeAdapte
 
 
     @Override
-    public void onFavClicked(int postion) {
-        mPresenter.addToFav(postion);
+    public void onFavClicked(String itemId, boolean isFav) {
+        mPresenter.addToFav(itemId,isFav);
     }
 
     @Override
-    public void onAddToCartClicked(int postion) {
-        mPresenter.addToCart(postion);
+    public void onAddToCartClicked(String itemId, boolean isInCart) {
+        mPresenter.addToCart(itemId,isInCart);
     }
 
     @Override

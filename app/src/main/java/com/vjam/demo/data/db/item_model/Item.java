@@ -121,7 +121,44 @@ public class Item {
     @Property(nameInDb = "item_no_of_ratings")
     private int itemNoOfRatings;
 
-    @Generated(hash = 737645935)
+    @Expose
+    @SerializedName("item_added_to_cart")
+    @Property(nameInDb = "item_added_to_cart")
+    private boolean isItemAddedToCart;
+
+    @Expose
+    @SerializedName("item_cont_in_cart")
+    @Property(nameInDb = "item_cont_in_cart")
+    private int itemContInCart;
+
+
+    @Generated(hash = 165522190)
+    public Item(Long keyId, String itemName, @NotNull String itemId, String itemDetails, String itemCategory,
+            int itemPrice, String itemColor, Boolean isItemFav, Boolean isItemInStock, String isItemTrending,
+            String itemImage, String itemDeliveryCharges, String itemAvgRating, int itemNoOfReviews,
+            int itemNoOfRatings, boolean isItemAddedToCart, int itemContInCart) {
+        this.keyId = keyId;
+        this.itemName = itemName;
+        this.itemId = itemId;
+        this.itemDetails = itemDetails;
+        this.itemCategory = itemCategory;
+        this.itemPrice = itemPrice;
+        this.itemColor = itemColor;
+        this.isItemFav = isItemFav;
+        this.isItemInStock = isItemInStock;
+        this.isItemTrending = isItemTrending;
+        this.itemImage = itemImage;
+        this.itemDeliveryCharges = itemDeliveryCharges;
+        this.itemAvgRating = itemAvgRating;
+        this.itemNoOfReviews = itemNoOfReviews;
+        this.itemNoOfRatings = itemNoOfRatings;
+        this.isItemAddedToCart = isItemAddedToCart;
+        this.itemContInCart = itemContInCart;
+    }
+
+    
+
+    /*@Generated(hash = 737645935)
     public Item(Long keyId, String itemName, @NotNull String itemId, String itemDetails, String itemCategory,
             int itemPrice, String itemColor, Boolean isItemFav, Boolean isItemInStock, String isItemTrending,
             String itemImage, String itemDeliveryCharges, String itemAvgRating, int itemNoOfReviews,
@@ -142,13 +179,30 @@ public class Item {
         this.itemNoOfReviews = itemNoOfReviews;
         this.itemNoOfRatings = itemNoOfRatings;
     }
-
+*/
     
 
     /*http://beta.json-generator.com/4knv5Xmnz
        http://www.mocky.io/v2/58da40e30f0000b700d66adc*/
 
     public Item() {
+    }
+
+
+    public boolean isItemAddedToCart() {
+        return isItemAddedToCart;
+    }
+
+    public void setItemAddedToCart(boolean itemAddedToCart) {
+        isItemAddedToCart = itemAddedToCart;
+    }
+
+    public int isItemContInCart() {
+        return itemContInCart;
+    }
+
+    public void setItemContInCart(int itemContInCart) {
+        this.itemContInCart = itemContInCart;
     }
 
     public Long getKeyId() {
@@ -285,5 +339,17 @@ public class Item {
 
     public void setIsItemInStock(Boolean isItemInStock) {
         this.isItemInStock = isItemInStock;
+    }
+
+    public boolean getIsItemAddedToCart() {
+        return this.isItemAddedToCart;
+    }
+
+    public void setIsItemAddedToCart(boolean isItemAddedToCart) {
+        this.isItemAddedToCart = isItemAddedToCart;
+    }
+
+    public int getItemContInCart() {
+        return this.itemContInCart;
     }
 }

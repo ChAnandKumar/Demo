@@ -14,14 +14,14 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.vjam.demo.R;
-import com.vjam.demo.model.ItemModel;
+import com.vjam.demo.data.db.item_model.Item;
 
 import java.util.List;
 
 public class WhatsHotAdapter extends RecyclerView.Adapter<WhatsHotAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<ItemModel> albumList;
+    private List<Item> albumList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, count;
@@ -37,7 +37,7 @@ public class WhatsHotAdapter extends RecyclerView.Adapter<WhatsHotAdapter.MyView
     }
 
 
-    public WhatsHotAdapter(Context mContext, List<ItemModel> albumList) {
+    public WhatsHotAdapter(Context mContext, List<Item> albumList) {
         this.mContext = mContext;
         this.albumList = albumList;
     }
@@ -52,12 +52,12 @@ public class WhatsHotAdapter extends RecyclerView.Adapter<WhatsHotAdapter.MyView
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        ItemModel album = albumList.get(position);
-        holder.title.setText(album.getName());
-        holder.count.setText("Rs " + album.getCost() );
+        Item album = albumList.get(position);
+        holder.title.setText(album.getItemName());
+        holder.count.setText("Rs " + album.getItemPrice() );
 
         // loading album cover using Glide library
-        Glide.with(mContext).load(album.getLocalThumbnail()).into(holder.thumbnail);
+        Glide.with(mContext).load(album.getItemImage()).into(holder.thumbnail);
 
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override

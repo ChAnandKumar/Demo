@@ -75,7 +75,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
                /* Intent intent = new Intent(mContext, ShowDetailsActivity.class);
                 intent.putExtra("pos",position);
                 mContext.startActivity(intent);*/
-               adapterCallback.onItemClicked(position);
+                adapterCallback.onItemClicked(position);
             }
         });
     }
@@ -90,8 +90,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
         inflater.inflate(R.menu.item_menu, popup.getMenu());
         popup.setOnMenuItemClickListener(new MyMenuItemClickListener(position));
         popup.show();
-
-
     }
 
     /**
@@ -113,13 +111,30 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
             switch (menuItem.getItemId()) {
 
                 case R.id.action_add_favourite:
-                    adapterCallback.onFavClicked(postion);
+                    if(albumList.get(postion).getIsItemFav() != null) {
+
+                        if(albumList.get(postion).getIsItemFav()) {
+                            adapterCallback.onFavClicked(albumList.get(postion).getItemId(), false);
+                        }
+
+                        else
+                            adapterCallback.onFavClicked(albumList.get(postion).getItemId(), true);
+                    }else {
+                        adapterCallback.onFavClicked(albumList.get(postion).getItemId(), true);
+                    }
                     //menuItem.getOrder();
                     Toast.makeText(mContext, "Add to favourite", Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.action_add_to_cart:
-                    adapterCallback.onAddToCartClicked(postion);
-                    Toast.makeText(mContext, "Added to cart", Toast.LENGTH_SHORT).show();
+
+                        if(albumList.get(postion).getIsItemAddedToCart()) {
+                            adapterCallback.onAddToCartClicked(albumList.get(postion).getItemId(), false);
+                        }
+                        else
+                            adapterCallback.onAddToCartClicked(albumList.get(postion).getItemId(), true);
+
+                    //menuItem.getOrder();
+                    Toast.makeText(mContext, "Add to cart", Toast.LENGTH_SHORT).show();
                     return true;
                 default:
             }

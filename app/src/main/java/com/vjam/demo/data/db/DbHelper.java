@@ -34,7 +34,9 @@ public interface DbHelper {
 
     Observable<Boolean> saveItemList(List<Item> items);
 
-    Observable<Boolean> updateItemData(Item item,int position);
+    Observable<Boolean> updateFav(String itemId,boolean isFav);
+
+    Observable<Boolean> updateCartItem(String itemId,boolean isInCart);
 
     //Observable<Item> saveItemListItem(List<Item> items);
 

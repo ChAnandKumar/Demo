@@ -23,7 +23,7 @@
                 android:layout_height="@dimen/album_cover_height"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:scaleType="fitXY" />
+                android:scaleType="centerCrop" />
 
             <TextView
                 android:id="@+id/title"
@@ -55,6 +55,16 @@
                 android:layout_marginTop="@dimen/ic_album_overflow_margin_top"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_dots" />
+
+           <!-- <ImageView
+                android:id="@+id/fav_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="24dp"
+                android:layout_toLeftOf="@+id/overflow"
+                android:layout_toStartOf="@+id/overflow"
+                card_view:srcCompat="@drawable/ic_favorite_border_white_24dp" />-->
 
         </RelativeLayout>
 

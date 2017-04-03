@@ -5,12 +5,21 @@ import android.content.Context;
 
 import com.vjam.demo.di.ActivityContext;
 import com.vjam.demo.di.PerActivity;
+import com.vjam.demo.ui.cart.CartMvpPresenter;
+import com.vjam.demo.ui.cart.CartMvpView;
+import com.vjam.demo.ui.cart.CartPresenter;
+import com.vjam.demo.ui.fav.FavMvpPresenter;
+import com.vjam.demo.ui.fav.FavMvpView;
+import com.vjam.demo.ui.fav.FavPresenter;
 import com.vjam.demo.ui.home.HomeMvpPresenter;
 import com.vjam.demo.ui.home.HomeMvpView;
 import com.vjam.demo.ui.home.HomePresenter;
 import com.vjam.demo.ui.splash.SplashMvpPresenter;
 import com.vjam.demo.ui.splash.SplashMvpView;
 import com.vjam.demo.ui.splash.SplashPresenter;
+import com.vjam.demo.ui.whatshot.WhatsHotMvpPresenter;
+import com.vjam.demo.ui.whatshot.WhatsHotMvpView;
+import com.vjam.demo.ui.whatshot.WhatsHotPresenter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -55,8 +64,25 @@ public class ActivityModule {
 
     @Provides
     @PerActivity
-    HomeMvpPresenter<HomeMvpView> provideHomePresenter(HomePresenter<HomeMvpView>
-                                                                     presenter) {
+    HomeMvpPresenter<HomeMvpView> provideHomePresenter(HomePresenter<HomeMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    FavMvpPresenter<FavMvpView> provideFavPresenter(FavPresenter<FavMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    CartMvpPresenter<CartMvpView> provideCartPresenter(CartPresenter<CartMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    WhatsHotMvpPresenter<WhatsHotMvpView> provideWhatsHotPresenter(WhatsHotPresenter<WhatsHotMvpView> presenter) {
         return presenter;
     }
 }

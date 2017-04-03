@@ -11,7 +11,10 @@ import android.view.MenuItem;
 
 import com.vjam.demo.R;
 import com.vjam.demo.ui.base.BaseActivity;
+import com.vjam.demo.ui.cart.CartFragment;
+import com.vjam.demo.ui.fav.FavFragment;
 import com.vjam.demo.ui.home.HomeFragment;
+import com.vjam.demo.ui.setting.SettingsFragment;
 import com.vjam.demo.ui.whatshot.WhatsHotFragment;
 
 public class MainActivity extends BaseActivity {
@@ -55,6 +58,7 @@ public class MainActivity extends BaseActivity {
                         break;
 
                     case R.id.action_favorites:
+                        openFragment(FavFragment.newInstance());
                         navigation.setItemBackgroundResource(R.color.colorAccent);
                         getSupportActionBar().setBackgroundDrawable(
                                 new ColorDrawable(getResources().getColor(R.color.colorAccent)));
@@ -71,12 +75,14 @@ public class MainActivity extends BaseActivity {
                         break;
 
                     case R.id.action_music:
+                        openFragment(CartFragment.newInstance());
                         navigation.setItemBackgroundResource(R.color.green);
                         getSupportActionBar().setBackgroundDrawable(
                                 new ColorDrawable(getResources().getColor(R.color.green)));
                         break;
 
                     case R.id.action_setting:
+                        openFragment(SettingsFragment.newInstance());
                         navigation.setItemBackgroundResource(R.color.colorPrimaryDark);
                         getSupportActionBar().setBackgroundDrawable(
                                 new ColorDrawable(getResources().getColor(R.color.colorPrimaryDark)));

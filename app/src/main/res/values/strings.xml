@@ -119,4 +119,6 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="no_favorite_item_selected">No Favorite Item Selected</string>
+    <string name="cart_is_empty">Cart is Empty</string>
 </resources>

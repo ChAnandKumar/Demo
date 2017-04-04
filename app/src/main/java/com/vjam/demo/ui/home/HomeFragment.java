@@ -81,60 +81,9 @@ public class HomeFragment extends BaseFragment implements HomeMvpView,HomeAdapte
             e.printStackTrace();
         }
 
-
-
         return view;
     }
 
-    /**
-     * Adding few albums for testing
-     */
-    private void prepareAlbums() {
-        int[] covers = new int[]{
-                R.drawable.album1,
-                R.drawable.album2,
-                R.drawable.album3,
-                R.drawable.album4,
-                R.drawable.album5,
-                R.drawable.album6,
-                R.drawable.album7,
-                R.drawable.album8,
-                R.drawable.album9,
-                R.drawable.album10,
-                R.drawable.album11};
-
-        /*ItemModel a = new ItemModel("True Romance", 13, covers[0]);
-        albumList.add(a);
-
-        a = new ItemModel("Xscpae", 8, covers[1]);
-        albumList.add(a);
-
-        a = new ItemModel("Maroon 5", 11, covers[2]);
-        albumList.add(a);
-
-        a = new ItemModel("Born to Die", 12, covers[3]);
-        albumList.add(a);
-
-        a = new ItemModel("Honeymoon", 14, covers[4]);
-        albumList.add(a);
-
-        a = new ItemModel("I Need a Doctor", 1, covers[5]);
-        albumList.add(a);
-
-        a = new ItemModel("Loud", 11, covers[6]);
-        albumList.add(a);
-
-        a = new ItemModel("Legend", 14, covers[7]);
-        albumList.add(a);
-
-        a = new ItemModel("Hello", 11, covers[8]);
-        albumList.add(a);
-
-        a = new ItemModel("Greatest Hits", 17, covers[9]);
-        albumList.add(a);*/
-
-
-    }
 
     @Override
     protected void setUp(View view) {

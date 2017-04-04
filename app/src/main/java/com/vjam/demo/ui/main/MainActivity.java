@@ -34,8 +34,6 @@ public class MainActivity extends BaseActivity {
         openFragment(homeFragment);
 
 
-
-
         navigation.setItemBackgroundResource(R.color.black);
         getSupportActionBar().setBackgroundDrawable(
                 new ColorDrawable(getResources().getColor(R.color.black)));
@@ -50,7 +48,6 @@ public class MainActivity extends BaseActivity {
 
                         HomeFragment homeFragment = new HomeFragment();
                         openFragment(homeFragment);
-
 
                         navigation.setItemBackgroundResource(R.color.black);
                         getSupportActionBar().setBackgroundDrawable(

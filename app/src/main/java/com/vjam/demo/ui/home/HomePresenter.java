@@ -1,16 +1,12 @@
 package com.vjam.demo.ui.home;
 
 import com.vjam.demo.data.DataManager;
-import com.vjam.demo.data.db.item_model.Item;
 import com.vjam.demo.ui.base.BasePresenter;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -35,12 +31,7 @@ public class HomePresenter<V extends HomeMvpView> extends BasePresenter<V> imple
         getCompositeDisposable().add(getDataManager().getAllItems()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<Item>>() {
-                    @Override
-                    public void accept(List<Item> items) throws Exception {
-                        getMvpView().loadItemsInViewF(items);
-                    }
-                }));
+                .subscribe(items -> getMvpView().loadItemsInViewF(items)));
 
     }
 
@@ -52,15 +43,12 @@ public class HomePresenter<V extends HomeMvpView> extends BasePresenter<V> imple
     @Override
     public void addToFav(String itemId, boolean isFav) {
         Timber.i("in HomePresenter Fav"+itemId);
+
         getCompositeDisposable().add(getDataManager().updateFav(itemId,isFav)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Boolean>() {
-                    @Override
-                    public void accept(Boolean aBoolean) throws Exception {
-                        Timber.i("in HomePresenter addToFav "+aBoolean);
-                    }
-                }));
+                .subscribe(aBoolean -> Timber.i("in HomePresenter addToFav "+aBoolean)));
+
         //getDataManager().updateItemData(null,1);
     }
 
@@ -70,12 +58,7 @@ public class HomePresenter<V extends HomeMvpView> extends BasePresenter<V> imple
         getCompositeDisposable().add(getDataManager().updateCartItem(itemId,isFav)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Boolean>() {
-                    @Override
-                    public void accept(Boolean aBoolean) throws Exception {
-                        Timber.i("in HomePresenter Cart "+aBoolean);
-                    }
-                }));
+                .subscribe(aBoolean -> Timber.i("in HomePresenter Cart "+aBoolean)));
 
     }
 }

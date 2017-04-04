@@ -4,7 +4,7 @@ package com.vjam.demo.ui.fav;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +17,6 @@ import com.bumptech.glide.Glide;
 import com.vjam.demo.R;
 import com.vjam.demo.data.db.item_model.Item;
 import com.vjam.demo.ui.base.BaseFragment;
-import com.vjam.demo.ui.home.ItemAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +33,7 @@ import butterknife.Unbinder;
  * create an instance of this fragment.
  */
 public class FavFragment extends BaseFragment implements FavMvpView {
+
     @BindView(R.id.fav_rv)
     RecyclerView favRv;
     Unbinder unbinder;
@@ -42,7 +42,7 @@ public class FavFragment extends BaseFragment implements FavMvpView {
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
     private ArrayList<Item> albumList;
-    private ItemAdapter adapter;
+    private FavItemAdaper adapter;
 
     public FavFragment() {
         // Required empty public constructor
@@ -74,9 +74,9 @@ public class FavFragment extends BaseFragment implements FavMvpView {
 
 
         albumList = new ArrayList<>();
-        adapter = new ItemAdapter(getActivity(), albumList, null);
+        adapter = new FavItemAdaper(getActivity(), albumList, null);
 
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         favRv.setLayoutManager(mLayoutManager);
         //recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, ViewUtils.dpToPx(10,this), true));
         favRv.setItemAnimator(new DefaultItemAnimator());

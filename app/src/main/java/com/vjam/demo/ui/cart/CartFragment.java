@@ -4,7 +4,7 @@ package com.vjam.demo.ui.cart;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.vjam.demo.R;
 import com.vjam.demo.data.db.item_model.Item;
 import com.vjam.demo.ui.base.BaseFragment;
-import com.vjam.demo.ui.home.ItemAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +44,7 @@ public class CartFragment extends BaseFragment implements CartMvpView {
     CartMvpPresenter<CartMvpView> mCartPresenter;
 
     private ArrayList<Item> albumList;
-    private ItemAdapter adapter;
+    private CartAdapter adapter;
 
     public CartFragment() {
         // Required empty public constructor
@@ -68,9 +67,9 @@ public class CartFragment extends BaseFragment implements CartMvpView {
 
 
         albumList = new ArrayList<>();
-        adapter = new ItemAdapter(getActivity(), albumList, null);
+        adapter = new CartAdapter(getActivity(), albumList, null);
 
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         cartRv.setLayoutManager(mLayoutManager);
         //recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, ViewUtils.dpToPx(10,this), true));
         cartRv.setItemAnimator(new DefaultItemAnimator());

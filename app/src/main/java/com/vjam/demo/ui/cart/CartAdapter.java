@@ -1,4 +1,4 @@
-package com.vjam.demo.ui.fav;
+package com.vjam.demo.ui.cart;
 
 import android.content.Context;
 import android.support.v7.widget.PopupMenu;
@@ -20,10 +20,10 @@ import com.vjam.demo.ui.home.HomeAdapterCallback;
 import java.util.List;
 
 /**
- * Created by anand.chandaliya on 03-04-2017.
+ * Created by anand.chandaliya on 04-04-2017.
  */
 
-public class FavItemAdaper extends RecyclerView.Adapter<FavItemAdaper.MyViewHolder> {
+public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> {
 
 private Context mContext;
 private List<Item> albumList;
@@ -31,43 +31,45 @@ private List<Item> albumList;
 private HomeAdapterCallback adapterCallback;
 
 public class MyViewHolder extends RecyclerView.ViewHolder {
-    public TextView title, count;
-    public ImageView thumbnail, overflow;
+    public TextView title, count,cost;
+    public ImageView thumbnail/*, overflow*/;
 
     public MyViewHolder(View view) {
         super(view);
-        title = (TextView) view.findViewById(R.id.title);
-        count = (TextView) view.findViewById(R.id.count);
-        thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
-        overflow = (ImageView) view.findViewById(R.id.overflow);
+        title = (TextView) view.findViewById(R.id.cart_item_name);
+        count = (TextView) view.findViewById(R.id.cart_item_count);
+        cost = (TextView) view.findViewById(R.id.cart_item_cost);
+        thumbnail = (ImageView) view.findViewById(R.id.cart_item_icon);
+        //overflow = (ImageView) view.findViewById(R.id.overflow);
     }
 }
 
 
-    public FavItemAdaper(Context mContext, List<Item> albumList,HomeAdapterCallback adapterCallback) {
+    public CartAdapter(Context mContext, List<Item> albumList, HomeAdapterCallback adapterCallback) {
         this.mContext = mContext;
         this.albumList = albumList;
         this.adapterCallback = adapterCallback;
     }
 
     @Override
-    public FavItemAdaper.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CartAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fav_item_card, parent, false);
+                .inflate(R.layout.cart_item_card, parent, false);
 
-        return new FavItemAdaper.MyViewHolder(itemView);
+        return new CartAdapter.MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(final FavItemAdaper.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final CartAdapter.MyViewHolder holder, final int position) {
         Item album = albumList.get(position);
         holder.title.setText(album.getItemName());
-        holder.count.setText("Rs " + album.getItemPrice() );
+        holder.cost.setText("Rs " + album.getItemPrice() );
+        holder.count.setText("Count : 5");
 
         // loading album cover using Glide library
         Glide.with(mContext).load(album.getItemImage()).into(holder.thumbnail);
 
-        holder.overflow.setOnClickListener(view -> showPopupMenu(holder.overflow,position));
+        //holder.overflow.setOnClickListener(view -> showPopupMenu(holder.overflow,position));
 
         holder.thumbnail.setOnClickListener(v -> {
            /* Intent intent = new Intent(mContext, ShowDetailsActivity.class);
@@ -85,7 +87,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         PopupMenu popup = new PopupMenu(mContext, view);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.item_menu, popup.getMenu());
-        popup.setOnMenuItemClickListener(new FavItemAdaper.MyMenuItemClickListener(position));
+        popup.setOnMenuItemClickListener(new CartAdapter.MyMenuItemClickListener(position));
         popup.show();
     }
 

@@ -75,9 +75,6 @@ public class CartFragment extends BaseFragment implements CartMvpView {
         cartRv.setItemAnimator(new DefaultItemAnimator());
         cartRv.setAdapter(adapter);
 
-
-
-
         return view;
     }
 

@@ -46,7 +46,7 @@ import timber.log.Timber;
  */
 
 public abstract class BaseActivity extends AppCompatActivity
-        implements MvpView, BaseFragment.Callback {
+        implements  MvpView,BaseFragment.Callback {
 
     private ProgressDialog mProgressDialog;
 

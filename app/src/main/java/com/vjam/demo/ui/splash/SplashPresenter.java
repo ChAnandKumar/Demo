@@ -5,11 +5,8 @@ import com.vjam.demo.ui.base.BasePresenter;
 
 import javax.inject.Inject;
 
-import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -34,33 +31,24 @@ public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V> i
                 .syncItemData()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .concatMap(new Function<Boolean, ObservableSource<Boolean>>() {
-                    @Override
-                    public ObservableSource<Boolean> apply(Boolean aBoolean) throws Exception {
-                        Timber.d("concatMap is called in SplashPresenter.");
-                        return getDataManager().loadItems();
-                    }
+                .concatMap(aBoolean -> {
+                    Timber.d("concatMap is called in SplashPresenter.");
+                    return getDataManager().loadItems();
                 })
-                .subscribe(new Consumer<Boolean>() {
-                    @Override
-                    public void accept(Boolean aBoolean) throws Exception {
-                        Timber.d("subscribe is called in SplashPresenter.");
-                        if (!isViewAttached()) {
-                            return;
-                        }
-                        decideNextActivity();
+                .subscribe(aBoolean -> {
+                    Timber.d("subscribe is called in SplashPresenter.");
+                    if (!isViewAttached()) {
+                        return;
                     }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        throwable.printStackTrace();
-                        Timber.d("Throwable is called in SplashPresenter.");
-                        if(!isViewAttached()) {
-                            return;
-                        }
-                        //getMvpView().onError("Some Error");
-                        decideNextActivity();
+                    decideNextActivity();
+                }, throwable -> {
+                    throwable.printStackTrace();
+                    Timber.d("Throwable is called in SplashPresenter.");
+                    if(!isViewAttached()) {
+                        return;
                     }
+                    //getMvpView().onError("Some Error");
+                    decideNextActivity();
                 }));
 
 

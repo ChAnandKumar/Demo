@@ -2,12 +2,10 @@ package com.vjam.demo.ui.main;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.MenuItem;
 
 import com.vjam.demo.R;
 import com.vjam.demo.ui.base.BaseActivity;
@@ -38,57 +36,54 @@ public class MainActivity extends BaseActivity {
         getSupportActionBar().setBackgroundDrawable(
                 new ColorDrawable(getResources().getColor(R.color.black)));
 
-        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                item.setChecked(true);
-                switch (item.getItemId()) {
-                    case R.id.action_home:
+        navigation.setOnNavigationItemSelectedListener(item -> {
+            item.setChecked(true);
+            switch (item.getItemId()) {
+                case R.id.action_home:
 
 
-                        HomeFragment homeFragment = new HomeFragment();
-                        openFragment(homeFragment);
+                    HomeFragment homeFragment1 = new HomeFragment();
+                    openFragment(homeFragment1);
 
-                        navigation.setItemBackgroundResource(R.color.black);
-                        getSupportActionBar().setBackgroundDrawable(
-                                new ColorDrawable(getResources().getColor(R.color.black)));
-                        break;
+                    navigation.setItemBackgroundResource(R.color.black);
+                    getSupportActionBar().setBackgroundDrawable(
+                            new ColorDrawable(getResources().getColor(R.color.black)));
+                    break;
 
-                    case R.id.action_favorites:
-                        openFragment(FavFragment.newInstance());
-                        navigation.setItemBackgroundResource(R.color.colorAccent);
-                        getSupportActionBar().setBackgroundDrawable(
-                                new ColorDrawable(getResources().getColor(R.color.colorAccent)));
-                        break;
-                    case R.id.action_schedules:
+                case R.id.action_favorites:
+                    openFragment(FavFragment.newInstance());
+                    navigation.setItemBackgroundResource(R.color.colorAccent);
+                    getSupportActionBar().setBackgroundDrawable(
+                            new ColorDrawable(getResources().getColor(R.color.colorAccent)));
+                    break;
+                case R.id.action_schedules:
 
 
-                        WhatsHotFragment fragment = new WhatsHotFragment();
-                        openFragment(fragment);
+                    WhatsHotFragment fragment = new WhatsHotFragment();
+                    openFragment(fragment);
 
-                        navigation.setItemBackgroundResource(R.color.yellow);
-                        getSupportActionBar().setBackgroundDrawable(
-                                new ColorDrawable(getResources().getColor(R.color.yellow)));
-                        break;
+                    navigation.setItemBackgroundResource(R.color.yellow);
+                    getSupportActionBar().setBackgroundDrawable(
+                            new ColorDrawable(getResources().getColor(R.color.yellow)));
+                    break;
 
-                    case R.id.action_music:
-                        openFragment(CartFragment.newInstance());
-                        navigation.setItemBackgroundResource(R.color.green);
-                        getSupportActionBar().setBackgroundDrawable(
-                                new ColorDrawable(getResources().getColor(R.color.green)));
-                        break;
+                case R.id.action_music:
+                    openFragment(CartFragment.newInstance());
+                    navigation.setItemBackgroundResource(R.color.green);
+                    getSupportActionBar().setBackgroundDrawable(
+                            new ColorDrawable(getResources().getColor(R.color.green)));
+                    break;
 
-                    case R.id.action_setting:
-                        openFragment(SettingsFragment.newInstance());
-                        navigation.setItemBackgroundResource(R.color.colorPrimaryDark);
-                        getSupportActionBar().setBackgroundDrawable(
-                                new ColorDrawable(getResources().getColor(R.color.colorPrimaryDark)));
-                        break;
-                }
-
-                return false;
-
+                case R.id.action_setting:
+                    openFragment(SettingsFragment.newInstance());
+                    navigation.setItemBackgroundResource(R.color.colorPrimaryDark);
+                    getSupportActionBar().setBackgroundDrawable(
+                            new ColorDrawable(getResources().getColor(R.color.colorPrimaryDark)));
+                    break;
             }
+
+            return false;
+
         });
 
     }

@@ -14,6 +14,9 @@ import com.vjam.demo.ui.fav.FavPresenter;
 import com.vjam.demo.ui.home.HomeMvpPresenter;
 import com.vjam.demo.ui.home.HomeMvpView;
 import com.vjam.demo.ui.home.HomePresenter;
+import com.vjam.demo.ui.item_details.ShowDetailsMvpPresenter;
+import com.vjam.demo.ui.item_details.ShowDetailsMvpView;
+import com.vjam.demo.ui.item_details.ShowDetailsPresenter;
 import com.vjam.demo.ui.splash.SplashMvpPresenter;
 import com.vjam.demo.ui.splash.SplashMvpView;
 import com.vjam.demo.ui.splash.SplashPresenter;
@@ -83,6 +86,12 @@ public class ActivityModule {
     @Provides
     @PerActivity
     WhatsHotMvpPresenter<WhatsHotMvpView> provideWhatsHotPresenter(WhatsHotPresenter<WhatsHotMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    ShowDetailsMvpPresenter<ShowDetailsMvpView> provideShowDetailsPresenter(ShowDetailsPresenter<ShowDetailsMvpView> presenter) {
         return presenter;
     }
 }

@@ -21,8 +21,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.functions.Function;
 
 /**
  * Created by anand.chandaliya on 02-03-2017.
@@ -60,12 +58,7 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<Boolean> syncItemData() {
         return mItemServices.getItems()
-                .concatMap(new Function<List<Item>, ObservableSource<? extends Boolean>>() {
-                    @Override
-                    public ObservableSource<? extends Boolean> apply(List<Item> items) throws Exception {
-                        return dbHelper.saveItemList(items);
-                    }
-                });
+                .concatMap(items -> dbHelper.saveItemList(items));
     }
 
     @Override
@@ -74,25 +67,22 @@ public class AppDataManager implements DataManager {
         final Gson gson = builder.create();
 
         return dbHelper.isUserEmpty()
-                .concatMap(new Function<Boolean, ObservableSource<? extends Boolean>>() {
-                               @Override
-                               public ObservableSource<? extends Boolean> apply(Boolean isEmpty) throws Exception {
-                                   if (isEmpty) {
-                                       Type type = new TypeToken<User>() {
-                                       }
-                                               .getType();
-                                       User optionList = gson.fromJson(
-                                                       CommonUtils.loadJSONFromAsset(context,
-                                                       AppConstants.SEED_DATABASE_REPORT),
-                                               type);
+                .concatMap(isEmpty -> {
+                    if (isEmpty) {
+                        Type type = new TypeToken<User>() {
+                        }
+                                .getType();
+                        User optionList = gson.fromJson(
+                                        CommonUtils.loadJSONFromAsset(context,
+                                        AppConstants.SEED_DATABASE_REPORT),
+                                type);
 
-                                      /*User optionList = mItemServices.getItems();*/
+                       /*User optionList = mItemServices.getItems();*/
 
-                                       return insertUser(optionList);
-                                   }
-                                   return Observable.just(false);
-                               }
-                           });
+                        return insertUser(optionList);
+                    }
+                    return Observable.just(false);
+                });
 
         //return dataManager.loadUserData();
     }
@@ -102,26 +92,22 @@ public class AppDataManager implements DataManager {
         GsonBuilder builder = new GsonBuilder().excludeFieldsWithoutExposeAnnotation();
         final Gson gson = builder.create();
         return dbHelper.isItemEmpty()
-                .concatMap(new Function<Boolean, ObservableSource<? extends Boolean>>() {
-                    @Override
-                    public ObservableSource<? extends Boolean> apply(Boolean isEmpty)
-                            throws Exception {
-                        if (isEmpty) {
-                            Type type = new TypeToken<List<Item>>() {
-                            }
-                                    .getType();
-                            List<Item> optionList = gson.fromJson(
-                                    CommonUtils.loadJSONFromAsset(context,
-                                            AppConstants.SEED_DATABASE_REPORT),
-                                    type);
-
-                            //List<Item> optionList = mItemServices.getItems();
-
-                            //return saveItemList(optionList);
-                            return  null;//temp
+                .concatMap(isEmpty -> {
+                    if (isEmpty) {
+                        Type type = new TypeToken<List<Item>>() {
                         }
-                        return Observable.just(false);
+                                .getType();
+                        List<Item> optionList = gson.fromJson(
+                                CommonUtils.loadJSONFromAsset(context,
+                                        AppConstants.SEED_DATABASE_REPORT),
+                                type);
+
+                        //List<Item> optionList = mItemServices.getItems();
+
+                        //return saveItemList(optionList);
+                        return  null;//temp
                     }
+                    return Observable.just(false);
                 });
     }
 

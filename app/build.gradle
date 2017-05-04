@@ -55,7 +55,7 @@ dependencies {
 
     // database
     compile "org.greenrobot:greendao:$rootProject.greenDaoVersion"
-    debugCompile "com.amitshekhar.android:debug-db:$rootProject.debugDBVersion";
+    debugCompile "com.amitshekhar.android:debug-db:$rootProject.debugDBVersion"
 
     // dependency injection
     compile "com.google.dagger:dagger:$rootProject.dagger2Version"

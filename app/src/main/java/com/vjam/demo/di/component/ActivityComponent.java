@@ -5,6 +5,7 @@ import com.vjam.demo.di.module.ActivityModule;
 import com.vjam.demo.ui.cart.CartFragment;
 import com.vjam.demo.ui.fav.FavFragment;
 import com.vjam.demo.ui.home.HomeFragment;
+import com.vjam.demo.ui.item_details.ShowDetailsActivity;
 import com.vjam.demo.ui.main.MainActivity;
 import com.vjam.demo.ui.splash.SplashScreenActivity;
 import com.vjam.demo.ui.whatshot.WhatsHotFragment;
@@ -30,6 +31,8 @@ public interface ActivityComponent {
     void inject(CartFragment cartFragment);
 
     void inject(WhatsHotFragment whatsHotFragment);
+
+    void inject(ShowDetailsActivity showDetailsActivity);
     /*
 
     void inject(Home home);
